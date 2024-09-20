@@ -14,7 +14,7 @@ const EmployeeList = lazy(() => import("@/pages/EmployeeList"));
 const AppRoutes = () => {
   return (
     <Router>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="system">
         <AuthProvider>
           <Suspense fallback={<Loading />}>
             <Routes>

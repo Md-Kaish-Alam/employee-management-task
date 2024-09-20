@@ -1,10 +1,7 @@
-// import { Navbar } from "@/components/Navbar"
-
 const Home = () => {
   return (
-    <div>
-      {/* <Navbar /> */}
-      <h1>Home</h1>
+    <div className="h-screen flex items-center justify-center">
+      <h1 className="text-2xl font-semibold">Welcome Admin Panel</h1>
     </div>
   )
 }

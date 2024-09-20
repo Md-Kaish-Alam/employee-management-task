@@ -13,11 +13,12 @@ import {
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
+import { ModeToggle } from "./mode-toggle";
 
 export const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   return (
-    <nav className="w-full bg-gray-200 dark:bg-gray-800">
+    <nav className="fixed top-0 w-full bg-gray-200 dark:bg-gray-800">
       <div className="md:container md:mx-auto py-4 flex items-center justify-between">
         <Logo/>
         <div className="flex items-center justify-center gap-4">
@@ -34,7 +35,7 @@ export const Navbar = () => {
             <DropdownMenuTrigger>
               <Avatar>
                 <AvatarFallback>
-                  <User className="h-6 w-6 text-gray-700" />
+                  <User className="h-6 w-6 text-black dark:text-white" />
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
@@ -48,6 +49,7 @@ export const Navbar = () => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle />
         </div>
       </div>
     </nav>
