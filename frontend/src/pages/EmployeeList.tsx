@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { ListRestart } from "lucide-react";
 import { useCallback, useContext, useEffect, useState } from "react";
 
@@ -9,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { columns } from "@/components/employee_table/columns";
 import { DataTable } from "@/components/employee_table/data-table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Link } from "react-router-dom";
 
 const defaultEmployeesData = [
   {
@@ -33,6 +33,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState<Employee[]>(defaultEmployeesData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
   const fetchEmployees = useCallback(async () => {
     setIsLoading(true);
@@ -112,7 +113,10 @@ const EmployeeList = () => {
           </Button>
         </Link>
       </div>
-      <DataTable columns={columns({ handleDeleteEmployee })} data={employees} />
+      <DataTable
+        columns={columns({ handleDeleteEmployee, copiedEmail, setCopiedEmail })}
+        data={employees}
+      />
     </div>
   );
 };
