@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UsersRound } from "lucide-react";
 
-import { Logo } from "./Logo";
+import AuthContext from "@/context/AuthContext";
+
 import { Button } from "./ui/button";
-import { User, UsersRound } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,15 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import { useContext } from "react";
-import AuthContext from "@/context/AuthContext";
+import { Logo } from "./Logo";
+import { UserAvatar } from "./UserAvatar";
 import { ModeToggle } from "./mode-toggle";
 
 export const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   return (
-    <nav className="sticky top-0 w-full bg-gray-200 dark:bg-gray-800 shadow-md">
+    <nav className="sticky top-0 w-full bg-gray-200 dark:bg-gray-800 shadow-md z-[9999]">
       <div className="md:container md:mx-auto py-4 flex items-center justify-between">
         <Logo/>
         <div className="flex items-center justify-center gap-4">
@@ -33,13 +34,9 @@ export const Navbar = () => {
           </Link>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarFallback>
-                  <User className="h-6 w-6 text-black dark:text-white" />
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="z-[99999]">
+            <DropdownMenuContent>
               <DropdownMenuItem>
                 <p className="font-bold">{user?.f_username}</p>
               </DropdownMenuItem>

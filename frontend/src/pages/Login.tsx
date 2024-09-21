@@ -30,11 +30,8 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ formValues });
     try {
       const response = await axios.post(`${BASE_URL}/auth/login`, formValues);
-
-      console.log({ response });
 
       if (response.status === 200) {
         const { token, user } = response.data;
