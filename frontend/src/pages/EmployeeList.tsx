@@ -1,13 +1,15 @@
 import axios from "axios";
+import { ListRestart } from "lucide-react";
 import { useCallback, useContext, useEffect, useState } from "react";
 
-import { Loading } from "@/components/Loading";
 import { Employee } from "@/constants/types";
+import { Loading } from "@/components/Loading";
 import AuthContext from "@/context/AuthContext";
-import { DataTable } from "@/components/employee_table/data-table";
-import { columns } from "@/components/employee_table/columns";
 import { Button } from "@/components/ui/button";
-import { ListRestart } from "lucide-react";
+import { columns } from "@/components/employee_table/columns";
+import { DataTable } from "@/components/employee_table/data-table";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Link } from "react-router-dom";
 
 const defaultEmployeesData = [
   {
@@ -30,10 +32,11 @@ const EmployeeList = () => {
 
   const [employees, setEmployees] = useState<Employee[]>(defaultEmployeesData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const fetchEmployees = useCallback(async () => {
     setIsLoading(true);
+    setError("");
     try {
       const response = await axios.get<Employee[]>(`${BASE_URL}/employees`, {
         headers: {
@@ -44,14 +47,12 @@ const EmployeeList = () => {
       setEmployees(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        // This is an Axios error
         if (error.response && error.response.data) {
-          setError(error.response.data.error || "Login failed");
+          setError(error.response.data.error || "Failed to fetch employees");
         } else {
-          setError("Login failed");
+          setError("Failed to fetch employees");
         }
       } else {
-        // This is a general error
         setError("An unexpected error occurred");
       }
     } finally {
@@ -63,9 +64,8 @@ const EmployeeList = () => {
     fetchEmployees();
   }, [fetchEmployees]);
 
-  // Refresh table data function
   const handleRefreshData = () => {
-    fetchEmployees(); // Re-fetch employees when the button is clicked
+    fetchEmployees();
   };
 
   const handleDeleteEmployee = async (f_Id: string) => {
@@ -76,7 +76,6 @@ const EmployeeList = () => {
         },
       });
 
-      // Remove the employee from the state
       setEmployees((prevEmployees) =>
         prevEmployees.filter((employee) => employee.f_Id !== f_Id)
       );
@@ -89,24 +88,29 @@ const EmployeeList = () => {
     }
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return alert(error);
-  }
-
   return (
     <div className="m-6">
+      {isLoading && <Loading />}
+      {error && (
+        <Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
       <div className="flex items-center justify-end gap-4">
         <p>Total Count: {employees.length}</p>
-        <Button variant="ghost" onClick={handleRefreshData}>
+        <Button
+          variant="ghost"
+          onClick={handleRefreshData}
+          disabled={isLoading}
+        >
           <ListRestart />
         </Button>
-        <Button className="bg-blue-800 text-white hover:bg-blue-600">
-          Add New Employee
-        </Button>
+        <Link to="/add_employee">
+          <Button className="bg-blue-800 text-white hover:bg-blue-600">
+            Add New Employee
+          </Button>
+        </Link>
       </div>
       <DataTable columns={columns({ handleDeleteEmployee })} data={employees} />
     </div>

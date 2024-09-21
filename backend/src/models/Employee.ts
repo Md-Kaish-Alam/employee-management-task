@@ -9,7 +9,7 @@ interface IEmployee extends Document {
   f_mobile_no: string;
   f_designation: string;
   f_gender: string;
-  f_course: string;
+  f_course: string[];
   f_created_date: Date;
 }
 
@@ -50,7 +50,7 @@ const EmployeeSchema: Schema = new Schema({
     trim: true,
   },
   f_course: {
-    type: String,
+    type: [String],
     required: true,
     trim: true,
   },

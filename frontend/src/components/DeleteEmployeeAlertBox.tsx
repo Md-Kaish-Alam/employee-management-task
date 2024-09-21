@@ -40,7 +40,7 @@ export const DeleteEmployeeAlertBox = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-red-800 dark:text-white"
+            className="bg-red-800 hover:bg-red-900 dark:text-white"
             onClick={() => handleDeleteEmployee(id)}
           >
             Delete

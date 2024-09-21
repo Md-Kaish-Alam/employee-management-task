@@ -1,7 +1,7 @@
-import { useTheme } from "@/hooks/useTheme";
 import readingLight from "@/assets/reading.png";
 import readingDark from "@/assets/reading-dark.png";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/hooks/useTheme";
 
 const Home = () => {
   const { theme } = useTheme();

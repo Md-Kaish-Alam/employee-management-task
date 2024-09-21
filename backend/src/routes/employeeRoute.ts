@@ -5,16 +5,21 @@ import {
   getEmployeeById,
   updateEmployee,
   deleteEmployee,
+  checkDuplicateEmail,
+  uploadImage,
 } from "../controllers/employeeController";
 import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 // Apply authMiddleware to protect routes
-router.use(authMiddleware);
+router.use(uploadImage, authMiddleware);
 
 // Create Employee
 router.post("/", createEmployee);
+
+// Check duplicate email
+router.post("/check-email", checkDuplicateEmail);
 
 // Get all Employees
 router.get("/", getAllEmployees);
