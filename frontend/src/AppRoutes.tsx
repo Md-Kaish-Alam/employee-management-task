@@ -7,7 +7,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const Home = lazy(() => import("@/pages/Home"));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
 const Login = lazy(() => import("@/pages/Login"));
 const Register = lazy(() => import("@/pages/Register"));
 const EmployeeList = lazy(() => import("@/pages/EmployeeList"));
@@ -30,7 +30,7 @@ const AppRoutes = () => {
                 path="/"
                 element={
                   <ProtectedRoute>
-                    <Home />
+                    <Dashboard />
                   </ProtectedRoute>
                 }
               />
