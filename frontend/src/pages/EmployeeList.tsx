@@ -10,7 +10,7 @@ import AuthContext from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { columns } from "@/components/employee_table/columns";
 import { DataTable } from "@/components/employee_table/data-table";
-import { DownloadExcel } from "@/components/downloadExcel";
+import { DownloadExcel } from "@/components/DownloadExcel";
 import { Hint } from "@/components/Hint";
 
 const defaultEmployeesData = [
