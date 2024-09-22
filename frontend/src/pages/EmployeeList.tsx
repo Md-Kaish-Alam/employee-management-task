@@ -115,7 +115,9 @@ const EmployeeList = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Employee List</h1>
         <div className="flex items-center justify-end gap-4">
-          <p>Total Count: {employees.length}</p>
+          <p className="underline underline-offset-4 p-2 rounded-md font-semibold">
+            Total Count: {employees.length}
+          </p>
           <Hint label="Refresh">
             <Button
               variant="ghost"

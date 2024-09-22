@@ -23,7 +23,7 @@ export const Hint = ({ label, children, asChild, side, align,isDelete }: HintPro
         <TooltipContent
           className={cn(
             isDelete
-              ? "text-white bg-red-800"
+              ? "text-white bg-red-600 dark:bg-red-800"
               : "text-black bg-white dark:bg-gray-800 dark:text-white"
           )}
           side={side}

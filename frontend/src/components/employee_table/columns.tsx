@@ -64,7 +64,7 @@ export const columns = ({
       accessorKey: "f_image",
       header: "Image",
       cell: ({ row }) => (
-        <UserAvatar url={row.original.f_image} username={row.original.f_name} />
+        <UserAvatar url={row.original.f_image} username={row.original.f_name} isBordered />
       ),
     },
     {
