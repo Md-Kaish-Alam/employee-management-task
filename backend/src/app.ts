@@ -13,9 +13,9 @@ const app = express();
 
 const corsOptions = {
   origin: "https://empowerhub-weld.vercel.app", // or '*' for allowing all origins
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
 
 // Connect to MongoDB
@@ -27,6 +27,7 @@ mongoose
 // Middleware
 app.use(cors());
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json());
 
 // Routes
