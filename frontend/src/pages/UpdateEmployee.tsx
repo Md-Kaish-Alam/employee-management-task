@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import AuthContext from "@/context/AuthContext";
 import EmployeeForm from "@/components/EmployeeForm";
 import { EmployeeFormValues } from "@/hooks/useEmployeeForm";
+import { Loading } from "@/components/Loading";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -112,7 +113,7 @@ const UpdateEmployee = () => {
   };
 
   if (!employeeData) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
