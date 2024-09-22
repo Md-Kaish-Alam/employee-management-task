@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 
 import AuthContext from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 interface FormValues {
   username: string;
@@ -121,9 +122,9 @@ const Login = () => {
             </form>
             <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
-              <a href="/register" className="text-blue-600">
+              <Link to="/register" className="text-blue-600">
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </div>

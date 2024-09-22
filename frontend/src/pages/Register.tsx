@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Ban } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { Link } from "react-router-dom";
 
 interface FormValues {
   username: string;
@@ -198,9 +199,9 @@ const Register = () => {
             </form>
             <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600">
+              <Link to="/login" className="text-blue-600">
                 Sign In
-              </a>
+              </Link>
             </div>
           </div>
         </div>
