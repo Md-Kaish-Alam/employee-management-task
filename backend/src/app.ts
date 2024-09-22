@@ -1,7 +1,7 @@
 import cors from "cors";
-import express from "express";
 import mongoose from "mongoose";
 import { config } from "dotenv";
+import express, {Request, Response } from "express";
 
 import authRoutes from "./routes/authRoutes";
 import employeeRoutes from "./routes/employeeRoute";
@@ -27,6 +27,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({
+    message: "Welcome to EmpowerHub API",
+  });
+});
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/employees", employeeRoutes);
 
