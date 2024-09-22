@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import { Request, Response, NextFunction } from "express";
 
 config();
 

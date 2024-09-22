@@ -1,19 +1,15 @@
 import { User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { cn } from "@/lib/utils";
 
 interface UserAvatarProps {
   username?: string;
   url?: string;
-  isBorder?: boolean;
 }
 
-export const UserAvatar = ({ url, username, isBorder }: UserAvatarProps) => {
+export const UserAvatar = ({ url, username }: UserAvatarProps) => {
   const fallbackUsername = username?.trim().substring(0, 2);
   return (
-    <Avatar
-      className={cn(" dark:border-white", isBorder && "border border-black")}
-    >
+    <Avatar>
       <AvatarImage src={url} />
       <AvatarFallback>
         {username ? (

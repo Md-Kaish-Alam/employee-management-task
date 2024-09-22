@@ -3,8 +3,10 @@ import { Ban } from "lucide-react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import AuthContext from "../context/AuthContext";
 import { Logo } from "@/components/Logo";
+
+import AuthContext from "../context/AuthContext";
+
 interface FormValues {
   username: string;
   password: string;

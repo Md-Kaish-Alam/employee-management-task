@@ -1,6 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const FormSchema = z.object({
   f_name: z.string().min(2, { message: "Name must be at least 2 characters." }),

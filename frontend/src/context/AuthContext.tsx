@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { createContext, useState, useEffect, ReactNode } from "react";
+
 import { User } from "@/constants/types";
 
 interface AuthContextProps {

@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "cloudinary";
+import { Request, Response } from "express";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
 import Employee from "../models/Employee";
-import { uploadToCloudinary } from "../utils/cloudinaryUtils";
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
@@ -17,18 +17,15 @@ const storage = new CloudinaryStorage({
 });
 
 // Initialize multer
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
+});
 
 // Create an Employee
 export const createEmployee = async (req: Request, res: Response) => {
-  const {
-    f_name,
-    f_email,
-    f_mobile_no,
-    f_designation,
-    f_gender,
-    f_course,
-  } = req.body;
+  const { f_name, f_email, f_mobile_no, f_designation, f_gender, f_course } =
+    req.body;
 
   // Validate input
   if (
@@ -37,7 +34,7 @@ export const createEmployee = async (req: Request, res: Response) => {
     !f_mobile_no ||
     !f_designation ||
     !f_gender ||
-    !f_course || 
+    !f_course ||
     !Array.isArray(f_course)
   ) {
     return res.status(400).json({ message: "All fields are required" });
@@ -58,7 +55,7 @@ export const createEmployee = async (req: Request, res: Response) => {
     // Handle image upload if present
     let imageUrl = null;
     if (req.file && req.file.path) {
-      imageUrl = req.file.path; // Cloudinary returns the URL in the 'path' field
+      imageUrl = req.file.path;
     }
 
     const newEmployee = new Employee({
@@ -80,13 +77,6 @@ export const createEmployee = async (req: Request, res: Response) => {
       .status(500)
       .json({ error: "Server error. Please try again later." });
   }
-};
-
-// Duplicate email check endpoint
-export const checkDuplicateEmail = async (req: Request, res: Response) => {
-  const { email } = req.body;
-  const existingEmployee = await Employee.findOne({ f_email: email });
-  return res.status(200).json({ isDuplicate: !!existingEmployee });
 };
 
 // Get all Employees
@@ -123,15 +113,8 @@ export const getEmployeeById = async (req: Request, res: Response) => {
 // Update Employee
 export const updateEmployee = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const {
-    f_image,
-    f_name,
-    f_email,
-    f_mobile_no,
-    f_designation,
-    f_gender,
-    f_course,
-  } = req.body;
+  const { f_name, f_email, f_mobile_no, f_designation, f_gender, f_course } =
+    req.body;
 
   // Validate input
   if (
@@ -147,16 +130,23 @@ export const updateEmployee = async (req: Request, res: Response) => {
   }
 
   try {
+    // Handle image upload if present
+    let imageUrl = null;
+    if (req.file && req.file.path) {
+      imageUrl = req.file.path;
+    }
+
+    // Update the employee record
     const updatedEmployee = await Employee.findOneAndUpdate(
       { f_Id: id },
       {
-        f_image,
         f_name,
         f_email,
         f_mobile_no,
         f_designation,
         f_gender,
         f_course,
+        f_image: imageUrl ? imageUrl : undefined, // Only update the image if provided
       },
       { new: true }
     );
@@ -165,12 +155,10 @@ export const updateEmployee = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Employee not found" });
     }
 
-    return res
-      .status(200)
-      .json({
-        message: "Employee updated successfully",
-        employee: updatedEmployee,
-      });
+    return res.status(200).json({
+      message: "Employee updated successfully",
+      employee: updatedEmployee,
+    });
   } catch (error) {
     return res
       .status(500)
@@ -198,4 +186,4 @@ export const deleteEmployee = async (req: Request, res: Response) => {
 };
 
 // Middleware to handle file upload
-export const uploadImage = upload.single('f_image');
+export const uploadImage = upload.single("f_image");

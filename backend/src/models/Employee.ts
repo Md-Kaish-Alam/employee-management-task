@@ -1,5 +1,5 @@
-import mongoose, { Document, Schema } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import mongoose, { Document, Schema } from "mongoose";
 
 interface IEmployee extends Document {
   f_Id: string;

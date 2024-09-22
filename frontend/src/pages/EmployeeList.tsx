@@ -1,15 +1,15 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ListRestart } from "lucide-react";
+import { ListRestart, Plus } from "lucide-react";
 import { useCallback, useContext, useEffect, useState } from "react";
 
+import { toast } from "@/hooks/use-toast";
 import { Employee } from "@/constants/types";
 import { Loading } from "@/components/Loading";
 import AuthContext from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { columns } from "@/components/employee_table/columns";
 import { DataTable } from "@/components/employee_table/data-table";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const defaultEmployeesData = [
   {
@@ -71,7 +71,7 @@ const EmployeeList = () => {
 
   const handleDeleteEmployee = async (f_Id: string) => {
     try {
-      await axios.delete(`${BASE_URL}/employees/${f_Id}`, {
+      const response = await axios.delete(`${BASE_URL}/employees/${f_Id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -81,6 +81,13 @@ const EmployeeList = () => {
         prevEmployees.filter((employee) => employee.f_Id !== f_Id)
       );
 
+      if (response.status === 200) {
+        toast({
+          title: "Employee Deleted",
+          description: "Employee deleted successfully",
+        });
+      }
+
       handleRefreshData();
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -89,29 +96,38 @@ const EmployeeList = () => {
     }
   };
 
+  if (error) {
+    toast({
+      title: "Error",
+      description: error,
+      variant: "destructive",
+    });
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="m-6">
-      {isLoading && <Loading />}
-      {error && (
-        <Alert variant="destructive">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-      <div className="flex items-center justify-end gap-4">
-        <p>Total Count: {employees.length}</p>
-        <Button
-          variant="ghost"
-          onClick={handleRefreshData}
-          disabled={isLoading}
-        >
-          <ListRestart />
-        </Button>
-        <Link to="/add_employee">
-          <Button className="bg-blue-800 text-white hover:bg-blue-600">
-            Add New Employee
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold">Employee List</h1>
+        <div className="flex items-center justify-end gap-2">
+          <p>Total Count: {employees.length}</p>
+          <Button
+            variant="ghost"
+            onClick={handleRefreshData}
+            disabled={isLoading}
+          >
+            <ListRestart />
           </Button>
-        </Link>
+          <Link to="/add_employee">
+            <Button className="bg-blue-800 text-white hover:bg-blue-600">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Employee
+            </Button>
+          </Link>
+        </div>
       </div>
       <DataTable
         columns={columns({ handleDeleteEmployee, copiedEmail, setCopiedEmail })}

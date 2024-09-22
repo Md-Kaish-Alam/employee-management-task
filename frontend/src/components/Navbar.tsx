@@ -4,7 +4,6 @@ import { UsersRound } from "lucide-react";
 
 import AuthContext from "@/context/AuthContext";
 
-import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Logo } from "./Logo";
+import { Button } from "./ui/button";
 import { UserAvatar } from "./UserAvatar";
 import { ModeToggle } from "./mode-toggle";
 
@@ -26,7 +26,7 @@ export const Navbar = () => {
           <Link to="/employee_list">
             <Button
               variant="link"
-              className="flex items-center justify-center gap-1"
+              className="flex items-center justify-center gap-1 text-md"
             >
               <UsersRound className="h-6 w-6" />
               Employee List

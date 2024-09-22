@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import { Request, Response } from "express";
 
 import User from "../models/User";
 

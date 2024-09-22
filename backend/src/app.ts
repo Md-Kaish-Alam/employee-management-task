@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
-import mongoose from "mongoose";
 import cors from "cors";
+import mongoose from "mongoose";
 import { config } from "dotenv";
+import express, { Request, Response } from "express";
 
 import authRoutes from "./routes/authRoutes";
 import employeeRoutes from "./routes/employeeRoute";
@@ -24,12 +24,5 @@ app.use(express.json());
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/employees", employeeRoutes);
-
-app.get("/api/v1/protected", authMiddleware, (req: Request, res: Response) => {
-  const userId = req.user?.userId;
-  return res.json({
-    message: `Hello User ${userId}`,
-  });
-});
 
 export default app;

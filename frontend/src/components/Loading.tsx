@@ -1,10 +1,10 @@
 export const Loading = () => {
   return (
-    <div className="flex items-center justify-center w-full h-screen border border-gray-200 rounded-lg bg-gray-50">
+    <div className="flex items-center justify-center w-full h-[85vh] rounded-lg bg-background">
       <div role="status">
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
+          className="w-8 h-8 text-gray-300 dark:text-gray-800 animate-spin fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

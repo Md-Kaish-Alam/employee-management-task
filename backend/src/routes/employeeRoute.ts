@@ -1,11 +1,11 @@
 import express from "express";
+
 import {
   createEmployee,
   getAllEmployees,
   getEmployeeById,
   updateEmployee,
   deleteEmployee,
-  checkDuplicateEmail,
   uploadImage,
 } from "../controllers/employeeController";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -13,13 +13,10 @@ import { authMiddleware } from "../middleware/authMiddleware";
 const router = express.Router();
 
 // Apply authMiddleware to protect routes
-router.use(uploadImage, authMiddleware);
+router.use(authMiddleware);
 
 // Create Employee
-router.post("/", createEmployee);
-
-// Check duplicate email
-router.post("/check-email", checkDuplicateEmail);
+router.post("/", uploadImage, createEmployee);
 
 // Get all Employees
 router.get("/", getAllEmployees);
@@ -28,7 +25,7 @@ router.get("/", getAllEmployees);
 router.get("/:id", getEmployeeById);
 
 // Update Employee
-router.put("/:id", updateEmployee);
+router.put("/:id", uploadImage, updateEmployee);
 
 // Delete Employee
 router.delete("/:id", deleteEmployee);

@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+import { Copy, UserRoundPen, CheckCircle, ArrowUpDown } from "lucide-react";
+
 import { Employee } from "@/constants/types";
+import { convertDateFormat } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+
 import { Button } from "../ui/button";
 import { UserAvatar } from "../UserAvatar";
-import { Copy, UserRoundPen, CheckCircle } from "lucide-react";
-import { convertDateFormat } from "@/lib/utils";
-import { ArrowUpDown } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
 import { DeleteEmployeeAlertBox } from "../DeleteEmployeeAlertBox";
 
 interface ColumnsProps {
@@ -20,7 +22,6 @@ export const columns = ({
   copiedEmail: string | null;
   setCopiedEmail: (email: string | null) => void;
 }): ColumnDef<Employee>[] => {
-
   return [
     {
       id: "select",
@@ -62,11 +63,7 @@ export const columns = ({
       accessorKey: "f_image",
       header: "Image",
       cell: ({ row }) => (
-        <UserAvatar
-          url={row.original.f_image}
-          username={row.original.f_name}
-          isBorder
-        />
+        <UserAvatar url={row.original.f_image} username={row.original.f_name} />
       ),
     },
     {
@@ -147,9 +144,11 @@ export const columns = ({
       header: "Actions",
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-2">
-          <Button variant="outline" onClick={() => console.log("clicked")}>
-            <UserRoundPen className="h-4 w-4" />
-          </Button>
+          <Link to={`/update_employee/${row.original.f_Id}`}>
+            <Button variant="outline">
+              <UserRoundPen className="h-4 w-4" />
+            </Button>
+          </Link>
           <DeleteEmployeeAlertBox
             id={row.original.f_Id}
             handleDeleteEmployee={handleDeleteEmployee}

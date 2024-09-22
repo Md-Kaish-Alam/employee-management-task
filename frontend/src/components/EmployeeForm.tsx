@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   Form,
   FormControl,
@@ -6,34 +8,39 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-    Select,
-    SelectContent,
+  Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useEmployeeForm, EmployeeFormValues } from "@/hooks/useEmployeeForm";
-  import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface EmployeeFormProps {
   defaultValues: EmployeeFormValues;
   onSubmit: (data: EmployeeFormValues) => void;
   fileInputRef: React.RefObject<HTMLInputElement>;
+  isUpdateForm?: boolean;
 }
 
 const EmployeeForm: React.FC<EmployeeFormProps> = ({
   defaultValues,
   onSubmit,
   fileInputRef,
+  isUpdateForm,
 }) => {
   const form = useEmployeeForm({ defaultValues });
 
   return (
     <div className="flex flex-wrap justify-between">
+      <h1 className="text-xl font-bold mb-6">
+        {isUpdateForm ? "Update Employee Details" : "Add Employee Details"}
+      </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex space-x-6">
@@ -253,13 +260,16 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({
             </div>
           </div>
           {/* Submit Button */}
-          <div className="flex justify-end mt-6">
+          <div className="flex items-center justify-end mt-6 gap-4">
             <Button
               type="submit"
               // className="w-full"
               disabled={form.formState.isSubmitting}
             >
-              Add Employee
+              {isUpdateForm ? "Update Employee" : "Create Employee"}
+            </Button>
+            <Button>
+              <Link to="/employee_list">Cancel</Link>
             </Button>
           </div>
         </form>
