@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../UserAvatar";
 import { DeleteEmployeeAlertBox } from "../DeleteEmployeeAlertBox";
+import { Hint } from "../Hint";
 
 interface ColumnsProps {
   handleDeleteEmployee: (f_Id: string) => void;
@@ -92,21 +93,23 @@ export const columns = ({
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           <p>{row.original.f_email}</p>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => {
-              navigator.clipboard.writeText(row.original.f_email);
-              setCopiedEmail(row.original.f_email);
-              setTimeout(() => setCopiedEmail(null), 5000);
-            }}
-          >
-            {copiedEmail === row.original.f_email ? (
-              <CheckCircle className="h-4 w-4 text-green-500" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
-          </Button>
+          <Hint label="Copy">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                navigator.clipboard.writeText(row.original.f_email);
+                setCopiedEmail(row.original.f_email);
+                setTimeout(() => setCopiedEmail(null), 5000);
+              }}
+            >
+              {copiedEmail === row.original.f_email ? (
+                <CheckCircle className="h-4 w-4 text-green-500" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
+            </Button>
+          </Hint>
         </div>
       ),
     },
@@ -145,9 +148,11 @@ export const columns = ({
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-2">
           <Link to={`/update_employee/${row.original.f_Id}`}>
-            <Button variant="outline">
-              <UserRoundPen className="h-4 w-4" />
-            </Button>
+            <Hint label="Edit">
+              <Button variant="outline">
+                <UserRoundPen className="h-4 w-4" />
+              </Button>
+            </Hint>
           </Link>
           <DeleteEmployeeAlertBox
             id={row.original.f_Id}

@@ -10,6 +10,8 @@ import AuthContext from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { columns } from "@/components/employee_table/columns";
 import { DataTable } from "@/components/employee_table/data-table";
+import { DownloadExcel } from "@/components/downloadExcel";
+import { Hint } from "@/components/Hint";
 
 const defaultEmployeesData = [
   {
@@ -112,15 +114,19 @@ const EmployeeList = () => {
     <div className="m-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Employee List</h1>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-4">
           <p>Total Count: {employees.length}</p>
-          <Button
-            variant="ghost"
-            onClick={handleRefreshData}
-            disabled={isLoading}
-          >
-            <ListRestart />
-          </Button>
+          <Hint label="Refresh">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleRefreshData}
+              disabled={isLoading}
+            >
+              <ListRestart />
+            </Button>
+          </Hint>
+          <DownloadExcel employees={employees} />
           <Link to="/add_employee">
             <Button className="bg-blue-800 text-white hover:bg-blue-600">
               <Plus className="h-4 w-4 mr-2" />

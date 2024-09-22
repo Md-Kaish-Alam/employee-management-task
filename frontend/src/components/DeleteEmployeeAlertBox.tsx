@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
+import { Hint } from "./Hint";
 
 interface DeleteEmployeeAlertBoxProps {
   id: string;
@@ -25,9 +26,11 @@ export const DeleteEmployeeAlertBox = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant="destructive">
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <Hint label="Delete" isDelete>
+          <Button variant="destructive">
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </Hint>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
