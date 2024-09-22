@@ -19,6 +19,11 @@ mongoose
 
 // Middleware
 app.use(cors());
+app.use(
+  cors({
+    origin: "https://empowerhub-weld.vercel.app",
+  })
+);
 app.use(express.json());
 
 // Routes
